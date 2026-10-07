@@ -33,12 +33,9 @@ import {
     IonFab,
     IonFabButton,
     IonSearchbar,
-    IonHeader,
     IonIcon,
-    IonTitle,
-    IonToolbar,
     TodoListComponent
-  ]
+]
 })
 export class HomePage {
 
