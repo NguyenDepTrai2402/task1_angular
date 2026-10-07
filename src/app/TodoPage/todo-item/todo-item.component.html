@@ -1,0 +1,56 @@
+<ion-card>
+
+  <ion-card-header>
+    <ion-card-title>
+      {{ todo.title }}
+    </ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+
+    @if (todo.description) {
+      <p>{{ todo.description }}</p>
+    }
+
+    <p class="priority">
+  Độ ưu tiên:
+
+  @if (todo.priority === 'low') {
+    <span class="priority-low">Thấp</span>
+  } @else if (todo.priority === 'medium') {
+    <span class="priority-medium">Trung bình</span>
+  } @else if (todo.priority === 'high') {
+    <span class="priority-high">Cao</span>
+  }
+</p>
+
+    @if (todo.dueDate) {
+      <p>
+        Hạn hoàn thành: {{ todo.dueDate | date:'dd/MM/yyyy' }}
+      </p>
+    }
+
+    <ion-checkbox
+      [checked]="todo.completed"
+      (ionChange)="onToggle()">
+      Hoàn thành
+    </ion-checkbox>
+
+    <div class="actions">
+      <ion-button
+        fill="outline"
+        (click)="onEdit()">
+        Sửa
+      </ion-button>
+
+      <ion-button
+        color="danger"
+        fill="outline"
+        (click)="onDelete()">
+        Xóa
+      </ion-button>
+    </div>
+
+  </ion-card-content>
+
+</ion-card>

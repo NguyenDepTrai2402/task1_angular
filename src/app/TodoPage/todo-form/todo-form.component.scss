@@ -1,0 +1,72 @@
+:host {
+  display: block;
+  min-height: 100%;
+  background: #000000;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: #000000;
+}
+
+ion-item {
+  --background: #000000;
+  --border-color: #000000;
+  --highlight-color-focused: #bef264;
+
+  border: 1px solid #717171;
+  border-radius: 12px;
+}
+
+ion-input,
+ion-textarea,
+ion-select {
+  --color: #ffffff;
+  --placeholder-color: #d1d1d1;
+}
+
+ion-label {
+  color: #bef264;
+  font-weight: 600;
+}
+
+ion-datetime {
+  width: 100%;
+  --background: #000000;
+  --title-color: #bef264;
+  --ion-color-primary: #bef264;
+}
+
+ion-button {
+  margin-top: 8px;
+
+  --background: #bef264;
+  --background-activated: #a3e635;
+  --color: #000000;
+  --border-radius: 12px;
+
+  font-weight: 700;
+}
+.back-button {
+  align-self: flex-start;
+
+  margin: 0;
+  padding: 0;
+
+  --background: transparent;
+  --background-hover: transparent;
+  --background-activated: transparent;
+  --color: #bef264;
+
+  --padding-start: 0;
+  --padding-end: 0;
+
+  height: 40px;
+
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: none;
+}

@@ -1,0 +1,69 @@
+<form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+  <ion-button
+  fill="clear"
+  type="button"
+  class="back-button"
+  (click)="goBack()">
+  <span>← Quay lại</span>
+</ion-button>
+  <ion-item>
+    <ion-input
+      label="Tiêu đề"
+      labelPlacement="stacked"
+      placeholder="Nhập tiêu đề"
+      formControlName="title">
+    </ion-input>
+  </ion-item>
+
+  @if (todoForm.controls.title.touched && todoForm.controls.title.invalid) {
+    <ion-item lines="none">
+      <ion-label color="danger">
+        Vui lòng nhập tiêu đề
+      </ion-label>
+    </ion-item>
+  }
+
+  <ion-item>
+    <ion-textarea
+      label="Mô tả"
+      labelPlacement="stacked"
+      placeholder="Nhập mô tả"
+      formControlName="description">
+    </ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-select
+      label="Độ ưu tiên"
+      labelPlacement="stacked"
+      formControlName="priority">
+
+      <ion-select-option value="low">
+        Thấp
+      </ion-select-option>
+
+      <ion-select-option value="medium">
+        Trung bình
+      </ion-select-option>
+
+      <ion-select-option value="high">
+        Cao
+      </ion-select-option>
+
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-datetime
+      presentation="date"
+      formControlName="dueDate">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-button
+    expand="block"
+    type="submit">
+    {{ todo ? 'Cập nhật việc' : 'Thêm việc' }}
+  </ion-button>
+
+</form>

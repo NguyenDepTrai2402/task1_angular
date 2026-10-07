@@ -1,0 +1,50 @@
+.priority {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.priority-low,
+.priority-medium,
+.priority-high {
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.priority-low {
+  color: #15803d;
+  background: #dcfce7;
+}
+
+.priority-medium {
+  color: #c2410c;
+  background: #ffedd5;
+}
+
+.priority-high {
+  color: #dc2626;
+  background: #fee2e2;
+}
+ion-card {
+  --background: #363636;
+
+  margin: 0 0 12px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  border-left: 4px solid #bef264;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+ion-button {
+  --color: #bef264;
+  --border-color: #bef264;
+  --border-radius: 10px;
+  font-weight: 600;
+}
+
+ion-button[color="danger"] {
+  --color: #ff6b6b;
+  --border-color: #ff6b6b;
+}

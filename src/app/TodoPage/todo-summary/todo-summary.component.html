@@ -1,0 +1,25 @@
+<ion-card>
+
+  <ion-card-content>
+
+    <div class="summary-header">
+      <ion-label>
+        <h3>Tiến độ công việc</h3>
+
+        <p>
+          {{ completedTodos }} / {{ totalTodos }} công việc hoàn thành
+        </p>
+      </ion-label>
+
+      <strong>
+        {{ progressPercent }}%
+      </strong>
+    </div>
+
+    <ion-progress-bar
+      [value]="progress">
+    </ion-progress-bar>
+
+  </ion-card-content>
+
+</ion-card>
