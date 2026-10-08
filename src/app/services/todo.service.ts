@@ -66,6 +66,19 @@ export class TodoService {
             )
         );
     }
+    setGoogleCalendarEventId(id: string, eventId: string): void {
+    this.todoState.update(todos =>
+        todos.map(todo =>
+            todo.id === id
+                ? {
+                      ...todo,
+                      googleCalendarEventId: eventId,
+                      updatedAt: new Date()
+                  }
+                : todo
+        )
+    );
+}
     getTodoById(id: string): Todo | undefined {
         return this.todoState().find(todo => todo.id === id);
     }   

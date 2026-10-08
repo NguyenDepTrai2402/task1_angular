@@ -6,6 +6,7 @@ export interface Todo {
     description?: string;
     completed: boolean;
     priority: TodoPriority;
+    googleCalendarEventId?: string;
     dueDate?: Date;
     createdAt: Date;
     updatedAt: Date;

@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import {  RouterLink } from '@angular/router';
 
 import {
   IonButton,
@@ -45,7 +45,6 @@ export class HomePage {
 
   searchKeyword = signal('');
 
-  private readonly router = inject(Router);
   private readonly todoService = inject(TodoService);
 
   readonly todos = this.todoService.todos;
@@ -73,11 +72,6 @@ export class HomePage {
       this.searchInput.trim().toLowerCase()
     );
   }
-
-  goToCreateTodo(): void {
-    this.router.navigate(['/todo/new']);
-  }
-
   readonly filteredTodos = () => {
     const filter = this.selectedFilter();
     const keyword = this.searchKeyword();

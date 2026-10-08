@@ -2,7 +2,6 @@ import { Component, Input, inject } from '@angular/core';
 import { IonList } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
-import { TodoService } from '../../services/todo.service';
 import { Todo } from '../../models/todo.model';
 
 @Component({
@@ -16,8 +15,6 @@ import { Todo } from '../../models/todo.model';
   ],
 })
 export class TodoListComponent  {
-
- private readonly todoService = inject(TodoService);
  private readonly router = inject(Router);
 @Input() todos: Todo[] = [];
   onEdit(todo: Todo): void {
