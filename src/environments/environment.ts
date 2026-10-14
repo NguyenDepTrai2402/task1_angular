@@ -6,6 +6,6 @@ export const environment = {
     projectId: 'task1-angular',
     appId: '1:1234567890:web:abcdef1234567890',
   },
-    geminiApiKey: 'api_key_đã_giấu'
+    geminiApiKey: 'YOUR_GEMINI_API_KEY'
 
 };
