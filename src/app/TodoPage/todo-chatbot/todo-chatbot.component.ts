@@ -47,7 +47,7 @@ export class ChatbotPage implements AfterViewChecked {
   readonly messages = signal<ChatMessage[]>([
     {
       role: 'bot',
-      text: 'Chào! Tao giúp m quản lý việc nè. Thử gõ "thêm việc họp 3h chiều mai" xem.'
+      text: 'Chào! Tui đến để giúp bạn quản lý việc nè. Thử gõ "thêm việc họp 3h chiều mai" xem.'
     }
   ]);
   readonly isLoading = signal(false);
