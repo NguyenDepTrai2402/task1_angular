@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import {  RouterLink } from '@angular/router';
-
+import {  chatbubbleOutline } from 'ionicons/icons';
 import {
   IonButton,
   IonContent,
@@ -54,7 +54,8 @@ export class HomePage {
     add,
     homeOutline,
     checkmarkOutline,
-    settingsOutline
+    settingsOutline,
+    chatbubbleOutline
 });
   }
 

@@ -22,4 +22,17 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+  path: 'settings',
+  loadComponent: () =>
+    import('./TodoPage/todo-setting/todo-setting.component')
+      .then((m) => m.SettingsPage),
+},
+{
+  path: 'chatbot',
+  loadComponent: () =>
+    import('./TodoPage/todo-chatbot/todo-chatbot.component')
+      .then((m) => m.ChatbotPage),
+},
+
 ];

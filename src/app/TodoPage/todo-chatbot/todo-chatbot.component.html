@@ -1,0 +1,61 @@
+<ion-content>
+  <div class="chat-layout">
+
+    <div class="chat-header">
+      <ion-button
+        fill="clear"
+        class="back-button"
+        routerLink="/home">
+        <span>← Quay lại</span>
+      </ion-button>
+
+      <h1>Chatbot</h1>
+
+      <ion-button
+        fill="clear"
+        size="small"
+        class="clear-button"
+        (click)="clearChat()">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="messages" #scrollBox>
+
+      @for (msg of messages(); track $index) {
+        <div
+          class="message-row"
+          [class.user]="msg.role === 'user'">
+          <div class="bubble">{{ msg.text }}</div>
+        </div>
+      }
+
+      @if (isLoading()) {
+        <div class="message-row">
+          <div class="bubble typing">
+            <ion-spinner name="dots"></ion-spinner>
+          </div>
+        </div>
+      }
+
+    </div>
+
+    <div class="input-bar">
+      <ion-item lines="none">
+        <ion-input
+          placeholder="Nhắn gì đó... vd: thêm việc họp 3h chiều mai"
+          [(ngModel)]="inputText"
+          (keyup.enter)="send()">
+        </ion-input>
+      </ion-item>
+
+      <ion-button
+        class="send-button"
+        (click)="send()"
+        [disabled]="isLoading()">
+        <ion-icon name="send-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

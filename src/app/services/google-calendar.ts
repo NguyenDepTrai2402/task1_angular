@@ -54,23 +54,6 @@ export class GoogleCalendarService {
       await this.signIn();
     }
 
-    const startDate = this.formatDate(dueDate);
-
-    const endDate = this.formatDate(
-      new Date(dueDate.getTime() + 24 * 60 * 60 * 1000)
-    );
-
-    const event = {
-      summary: title,
-      description: description || '',
-      start: {
-        date: startDate
-      },
-      end: {
-        date: endDate
-      }
-    };
-
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.accessToken}`,
       'Content-Type': 'application/json'
@@ -79,12 +62,37 @@ export class GoogleCalendarService {
     const response = await firstValueFrom(
       this.http.post<{ id: string }>(
         this.calendarApiUrl,
-        event,
+        this.buildEventBody(title, description, dueDate),
         { headers }
       )
     );
 
     return response.id;
+  }
+
+  async updateCalendarEvent(
+    eventId: string,
+    title: string,
+    description: string | undefined,
+    dueDate: Date
+  ): Promise<void> {
+
+    if (!this.accessToken) {
+      await this.signIn();
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.accessToken}`,
+      'Content-Type': 'application/json'
+    });
+
+    await firstValueFrom(
+      this.http.patch(
+        `${this.calendarApiUrl}/${eventId}`,
+        this.buildEventBody(title, description, dueDate),
+        { headers }
+      )
+    );
   }
 
   async deleteCalendarEvent(eventId: string): Promise<void> {
@@ -103,6 +111,29 @@ export class GoogleCalendarService {
         { headers }
       )
     );
+  }
+
+  private buildEventBody(
+    title: string,
+    description: string | undefined,
+    dueDate: Date
+  ) {
+    const startDate = this.formatDate(dueDate);
+
+    const endDate = this.formatDate(
+      new Date(dueDate.getTime() + 24 * 60 * 60 * 1000)
+    );
+
+    return {
+      summary: title,
+      description: description || '',
+      start: {
+        date: startDate
+      },
+      end: {
+        date: endDate
+      }
+    };
   }
 
   private formatDate(date: Date): string {

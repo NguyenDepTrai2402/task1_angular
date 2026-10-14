@@ -1,3 +1,4 @@
+<ion-content>
 <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
   <ion-button
   fill="clear"
@@ -6,6 +7,7 @@
   (click)="goBack()">
   <span>← Quay lại</span>
 </ion-button>
+ <h1>Thêm Việc</h1>
   <ion-item>
     <ion-input
       label="Tiêu đề"
@@ -67,3 +69,4 @@
   </ion-button>
 
 </form>
+</ion-content>

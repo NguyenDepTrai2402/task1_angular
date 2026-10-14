@@ -15,17 +15,19 @@ import {
   IonLabel,
   IonSelect,
   IonSelectOption,
+  IonContent,
   IonTextarea
 } from '@ionic/angular';
 
 import { Todo, TodoPriority } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
+import { GoogleCalendarService } from '../../services/google-calendar';
 
 @Component({
   selector: 'app-todo-form',
   templateUrl: './todo-form.component.html',
   styleUrls: ['./todo-form.component.scss'],
-  imports: [
+  imports: [IonContent, 
     ReactiveFormsModule,
     IonInput,
     IonTextarea,
@@ -40,6 +42,7 @@ import { TodoService } from '../../services/todo.service';
 export class TodoFormComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly todoService = inject(TodoService);
+  private readonly googleCalendarService = inject(GoogleCalendarService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
@@ -71,13 +74,16 @@ export class TodoFormComponent {
     }
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.todoForm.invalid) {
       this.todoForm.markAllAsTouched();
       return;
     }
 
     const formValue = this.todoForm.getRawValue();
+    const dueDate = formValue.dueDate
+      ? new Date(formValue.dueDate)
+      : undefined;
 
     if (this.todo) {
       this.todoService.updateTodo(
@@ -85,22 +91,57 @@ export class TodoFormComponent {
         formValue.title,
         formValue.description,
         formValue.priority,
-        formValue.dueDate
-          ? new Date(formValue.dueDate)
-          : undefined
+        dueDate
+      );
+
+      await this.syncCalendarOnEdit(
+        this.todo,
+        formValue.title,
+        formValue.description,
+        dueDate
       );
     } else {
       this.todoService.addTodo(
         formValue.title,
         formValue.description,
         formValue.priority,
-        formValue.dueDate
-          ? new Date(formValue.dueDate)
-          : undefined
+        dueDate
       );
     }
 
     this.router.navigate(['/home']);
+  }
+
+  private async syncCalendarOnEdit(
+    todo: Todo,
+    title: string,
+    description: string,
+    dueDate: Date | undefined
+  ): Promise<void> {
+    const eventId = todo.googleCalendarEventId;
+
+    if (!eventId) {
+      return;
+    }
+
+    try {
+      if (dueDate) {
+        await this.googleCalendarService.updateCalendarEvent(
+          eventId,
+          title,
+          description,
+          dueDate
+        );
+        alert('Đã cập nhật Todo và sự kiện trên Google Calendar');
+      } else {
+        await this.googleCalendarService.deleteCalendarEvent(eventId);
+        this.todoService.clearGoogleCalendarEventId(todo.id);
+        alert('Đã cập nhật Todo và xóa sự kiện trên Google Calendar');
+      }
+    } catch (error) {
+      console.error('Google Calendar error:', error);
+      alert('Đã lưu Todo, nhưng không đồng bộ được với Google Calendar');
+    }
   }
   goBack(): void {
   this.router.navigate(['/home']);
